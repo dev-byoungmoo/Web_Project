@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.zerock.mapper.BoardMapper">
+<!--
+	ID : getList
+	작성일자 : 2024-03-06
+	메모 : 일반적인 SELECT
+ -->
+	<select id="getList" resultType="org.zerock.domain.BoardVO">
+		<![CDATA[
+			SELECT * FROM tbl_board WHERE bno > 0
+		]]>
+	</select>
+	
+<!--
+	ID : insert
+	작성일자 : 2024-03-06
+	메모 : 일반적인 INSERT
+ -->
+	<insert id="insert">
+		INSERT INTO tbl_board ( 
+			bno, 
+			title, 
+			content, 
+			writer
+		)
+		VALUES(
+			seq_board.nextval,
+			#{title},
+			#{content},
+			#{writer}
+		)
+	</insert>
+	
+<!--
+	ID : insertSelectKey
+	작성일자 : 2024-03-06
+	메모 : selectKey = Mybatis 어노테이션을 이용한다 sql로 pk 먼저 처리해서 bno값 결과 보관
+ -->
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+			SELECT seq_board.nextval FROM DUAL
+		</selectKey>
+		INSERT INTO tbl_board ( 
+			bno, 
+			title, 
+			content, 
+			writer
+		)
+		VALUES(
+			#{bno},
+			#{title},
+			#{content},
+			#{writer}
+		)
+	</insert>
+
+<!--
+	ID : read
+	작성일자 : 2024-03-06
+	메모 : bno 값으로 전체 조회  
+ -->
+ 	<select id="read" resultType="org.zerock.domain.BoardVO">
+ 		SELECT * FROM tbl_board WHERE bno = #{bno}
+ 	</select>
+
+
+
+<!--
+	ID : delete
+	작성일자 : 2024-03-06
+	메모 : bno 값으로 데이터 삭제  
+ --> 	
+ 	<delete id="delete">
+ 		DELETE tbl_board WHERE bno = #{bno}
+ 	</delete>
+
+<!--
+	ID : update
+	작성일자 : 2024-03-06
+	메모 : bno 값으로 데이터 수정  
+ --> 	 	
+ 	<update id="update">
+ 		UPDATE tbl_board
+ 			SET title= #{title},
+ 			content= #{content},
+ 			writer= #{writer},
+ 			updateDate= sysdate
+ 		where 
+ 			bno= #{bno}
+ 	</update>
+ 	
+</mapper>
+	
