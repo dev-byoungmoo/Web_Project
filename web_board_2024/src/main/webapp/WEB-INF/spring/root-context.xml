@@ -29,6 +29,6 @@
 	
 	<!-- 해당부분 -->
 	<mybatis-spring:scan base-package="org.zerock.mapper"/>
-<!-- 	<context:component-scan base-package="org.study.t_code"/> -->
+	<context:component-scan base-package="org.zerock.service"/>
 		
 </beans>
