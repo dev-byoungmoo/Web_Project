@@ -58,10 +58,10 @@ public class BoardServiceTest {
 		if(board == null) {
 			return;
 		}
-		log.info("test");
-		log.info("test");
-		log.info("test");
-		log.info("test");
+		log.info("qwer");
+		log.info("qwer");
+		log.info("qwer");
+		log.info("qwer");
 		
 		board.setTitle("제목을 수정쓰합니다.");
 		log.info("testUpdate" + service.modify(board));
