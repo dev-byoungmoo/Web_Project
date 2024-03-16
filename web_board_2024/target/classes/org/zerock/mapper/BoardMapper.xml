@@ -92,5 +92,25 @@
  			bno= #{bno}
  	</update>
  	
+<!--
+	ID : update
+	작성일자 : 2024-03-06
+	메모 : bno 값으로 데이터 수정  
+ -->
+ 	<select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">
+ 		<![CDATA[
+ 			SELECT
+ 				bno , title , content , writer , regdate , updatedate
+ 			FROM 
+ 				( 
+ 				  	SELECT /*+INDEX_DESC(tbl_board pk_board) */
+ 						rownum rn , bno , title , content , writer , regdate , updatedate
+ 				  	FROM
+ 				    	tbl_board
+ 				  	WHERE rownum <= #{pageNum} * #{amount}
+ 				 )
+ 			WHERE rn > (#{pageNum} - 1) * #{amount}
+ 		]]>
+ 	</select>
 </mapper>
 	
